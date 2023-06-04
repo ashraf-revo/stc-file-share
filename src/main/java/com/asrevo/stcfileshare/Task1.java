@@ -33,7 +33,4 @@ public class Task1 {
         return stringBuilder.toString();
     }
 
-    public static void main(String[] args) {
-        System.out.println(solution("dd(df)a(ghhh)"));
-    }
 }
