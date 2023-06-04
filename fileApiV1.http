@@ -1,0 +1,20 @@
+### create space stc-assessments
+POST http://localhost:8080/api/item/v1/space
+Authorization: Basic editor editor
+Content-Type: application/json
+
+{
+  "name": "stc-assessments"
+}
+
+### create folder stc-assessments
+POST http://localhost:8080/api/item/v1/folder
+Authorization: Basic editor editor
+Content-Type: application/json
+
+{
+  "name": "backend",
+  "parent": {
+    "id": 102
+  }
+}
