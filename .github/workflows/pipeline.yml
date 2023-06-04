@@ -32,5 +32,9 @@ jobs:
           arguments: bootBuildImage -x test
       - uses: actions/upload-artifact@v3
         with:
-          name: Package
+          name: reports
+          path: build/reports
+      - uses: actions/upload-artifact@v3
+        with:
+          name: libs
           path: build/libs
