@@ -17,7 +17,7 @@ public class Permissions implements Serializable {
     @GeneratedValue
     private Long id;
     private String userEmail;
-    @Enumerated
+    @Enumerated(value = EnumType.STRING)
     private PermissionLevel permissionLevel;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn

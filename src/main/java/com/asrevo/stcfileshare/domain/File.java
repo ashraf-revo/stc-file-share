@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -21,6 +22,9 @@ public class File implements Serializable {
     @JoinColumn
     @MapsId
     private Item item;
-    @Embedded
-    private Meta meta;
+    @ElementCollection
+    @CollectionTable(name = "file_meta_mapping", joinColumns = {@JoinColumn(name = "id", referencedColumnName = "item_id")})
+    @MapKeyColumn(name = "key")
+    @Column(name = "value")
+    private Map<String, String> meta;
 }

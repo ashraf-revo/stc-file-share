@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 public class ItemFileServiceImpl implements ItemFileService {
     @Autowired
@@ -18,9 +20,8 @@ public class ItemFileServiceImpl implements ItemFileService {
 
     @Transactional
     @Override
-    public File save(Long folderId, String fileName, byte[] content) {
+    public File save(Long folderId, String fileName, byte[] content, HashMap<String, String> meta) {
         Item item = itemService.createItemFile(fileName, folderId);
-
-        return fileService.createFile(item,content);
+        return fileService.createFile(item, content, meta);
     }
 }
