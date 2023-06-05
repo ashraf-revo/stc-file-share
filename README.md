@@ -14,4 +14,4 @@ this project contain 3 tasks as mentioned in the assessment
 - using `spring-boot-starter-webflux & webflux-security` this is using spring-reactive which utilize Projectreactor and Reactor Netty
 - build `upload and downalod apis`
 - using GitHub action's to build application
-- pushing container to GitHub container registry
+- pushing container to [GHCR](https://github.com/users/ashraf-revo/packages/container/package/stc-file-share)
