@@ -23,6 +23,10 @@ public class WebfluxSecurity {
                 .withUsername("viewer")
                 .password("viewer")
                 .build();
+        UserDetails bviewer = User
+                .withUsername("bviewer")
+                .password("bviewer")
+                .build();
 
         UserDetails editor = User
                 .withUsername("editor")
@@ -30,7 +34,7 @@ public class WebfluxSecurity {
                 .build();
 
 
-        return new MapReactiveUserDetailsService(viewer, editor);
+        return new MapReactiveUserDetailsService(viewer, editor, bviewer);
     }
 
     @Bean

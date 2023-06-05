@@ -10,7 +10,7 @@ public interface PermissionsRepository extends CrudRepository<Permissions, Long>
     @Query(value = """
             select p.*
                 from permissions p
-                     left join permission_group pg on p.permission_group_id = pg.id
+                      join permission_group pg on p.permission_group_id = pg.id
             where p.permission_level = :permissionLevel
               and p.user_email = :userEmail
                         """, nativeQuery = true)
@@ -19,8 +19,8 @@ public interface PermissionsRepository extends CrudRepository<Permissions, Long>
     @Query(value = """
             select count(p.id)=1 as premited
             from permissions p
-                     left join permission_group pg on p.permission_group_id = pg.id
-                     left join item space on (pg.id = space.permission_group_id and space.id = :spaceId and space.item_type = 'SPACE')
+                      join permission_group pg on p.permission_group_id = pg.id
+                      join item space on (pg.id = space.permission_group_id and space.id = :spaceId and space.item_type = 'SPACE')
             where p.permission_level = :permissionLevel
               and p.user_email = :userEmail
             """, nativeQuery = true)
@@ -30,14 +30,14 @@ public interface PermissionsRepository extends CrudRepository<Permissions, Long>
     @Query(value = """
             with parent as (select space.*
                             from item folder
-                                     left join item space on folder.parent_id = space.id
+                                      join item space on folder.parent_id = space.id
                             where folder.item_type = 'FOLDER'
                               and folder.id = :folderId)
 
             select count(p.id) = 1 as premited
             from permissions p
-                     left join permission_group pg on p.permission_group_id = pg.id
-                     left join parent pt on pt.permission_group_id = p.id
+                      join permission_group pg on p.permission_group_id = pg.id
+                      join parent pt on pt.permission_group_id = pg.id
             where p.permission_level = :permissionLevel
               and p.user_email = :userEmail
                                     """, nativeQuery = true)
@@ -47,8 +47,8 @@ public interface PermissionsRepository extends CrudRepository<Permissions, Long>
     @Query(value = """
             with parent as (select space.*
                             from item file
-                                     left join item folder on file.parent_id = folder.id
-                                     left join item space on folder.parent_id = space.id
+                                      join item folder on file.parent_id = folder.id
+                                      join item space on folder.parent_id = space.id
                             where file.id = :fileId
                               and file.item_type = 'FILE'
                               and folder.item_type = 'FOLDER'
@@ -56,8 +56,8 @@ public interface PermissionsRepository extends CrudRepository<Permissions, Long>
 
             select count(p.id) = 1 as premited
             from permissions p
-                     left join permission_group pg on p.permission_group_id = pg.id
-                     left join parent pt on pt.permission_group_id = p.id
+                      join permission_group pg on p.permission_group_id = pg.id
+                      join parent pt on pt.permission_group_id = pg.id
             where p.permission_level = :permissionLevel
               and p.user_email = :userEmail
                                     """, nativeQuery = true)
