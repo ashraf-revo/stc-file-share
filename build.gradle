@@ -10,7 +10,6 @@ group = 'com.asrevo'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 ext {
-    dockerPath = "ashraf1abdelrasool"
 }
 configurations {
     compileOnly {
@@ -52,5 +51,13 @@ hibernate {
 
 bootBuildImage {
     builder = "paketobuildpacks/builder:tiny"
-    imageName = "ashraf1abdelrasool/${rootProject.name}:${project.version}"
+    imageName = "ghcr.io/ashraf-revo/${rootProject.name}:${project.version}"
+    docker {
+        publishRegistry {
+            url = "https://ghcr.io"
+            username = "ashraf-revo"
+            password = System.getenv("GHCR_TOKEN")
+        }
+    }
+
 }
