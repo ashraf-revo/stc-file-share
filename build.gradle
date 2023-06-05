@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'com.asrevo'
-version = '0.0.1-SNAPSHOT'
+version = '0.1.0-SNAPSHOT'
 sourceCompatibility = '17'
 ext {
 }
