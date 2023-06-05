@@ -1,6 +1,7 @@
 package com.asrevo.stcfileshare.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,5 +19,6 @@ public class PermissionGroup implements Serializable {
     private Long id;
     private String groupName;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "permissionGroup")
+    @JsonManagedReference
     private List<Item> items;
 }

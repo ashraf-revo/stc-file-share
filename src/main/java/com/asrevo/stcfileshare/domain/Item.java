@@ -1,6 +1,7 @@
 package com.asrevo.stcfileshare.domain;
 
 import com.asrevo.stcfileshare.domain.enumration.ItemType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,8 +22,9 @@ public class Item implements Serializable {
     private String name;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn
+    @JsonBackReference
     private PermissionGroup permissionGroup;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Item parent;
     @OneToOne(mappedBy = "item")

@@ -24,7 +24,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         return switch (targetDomainObject.toString()) {
             case PermissionsDefinitions.CREATE_SPACE -> permissionsService.checkUserAccessOnSpace(principal, EDIT);
             case PermissionsDefinitions.CREATE_FOLDER ->
-                    permissionsService.checkUserAccessOnSpace(((Item) permission).getId(), principal, EDIT);
+                    permissionsService.checkUserAccessOnSpace(((Item) permission).getParent().getId(), principal, EDIT);
             case PermissionsDefinitions.CREATE_File ->
                     permissionsService.checkUserAccessOnFolder(((Item) permission).getId(), principal, EDIT);
             case PermissionsDefinitions.VIEW_FILE ->
