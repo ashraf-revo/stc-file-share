@@ -19,16 +19,16 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
     private PermissionsService permissionsService;
 
     @Override
-    public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
+    public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object target) {
         User principal = (User) authentication.getPrincipal();
         return switch (targetDomainObject.toString()) {
             case PermissionsDefinitions.CREATE_SPACE -> permissionsService.checkUserAccessOnSpace(principal, EDIT);
             case PermissionsDefinitions.CREATE_FOLDER ->
-                    permissionsService.checkUserAccessOnSpace(((Item) permission).getParent().getId(), principal, EDIT);
+                    permissionsService.checkUserAccessOnSpace(((Item) target).getParent().getId(), principal, EDIT);
             case PermissionsDefinitions.CREATE_File ->
-                    permissionsService.checkUserAccessOnFolder(((Item) permission).getId(), principal, EDIT);
+                    permissionsService.checkUserAccessOnFolder(((Long) target), principal, EDIT);
             case PermissionsDefinitions.VIEW_FILE ->
-                    permissionsService.checkUserAccessOnFile(((Long) permission), principal, VIEW);
+                    permissionsService.checkUserAccessOnFile(((Long) target), principal, VIEW);
             default -> false;
         };
     }

@@ -33,8 +33,11 @@ public class WebfluxSecurity {
                 .password("editor")
                 .build();
 
-
-        return new MapReactiveUserDetailsService(viewer, editor, bviewer);
+        UserDetails beditor = User
+                .withUsername("beditor")
+                .password("beditor")
+                .build();
+        return new MapReactiveUserDetailsService(viewer, editor, bviewer, beditor);
     }
 
     @Bean

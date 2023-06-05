@@ -36,6 +36,7 @@ public class FileApiV1 {
     }
 
     @PostMapping(value = "upload/{folderId}", consumes = MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasPermission('CREATE_File',#folderId)")
     public Mono<Void> upload(@PathVariable("folderId") Long folderId, @RequestPart("file") FilePart file) {
         HashMap<String, String> meta = FileUtils.extractHeaders(file);
         return file.content().collectList().map(FileUtils::getFileContent).map(it -> itemFileService.save(folderId, file.filename(), it, meta)).then();
