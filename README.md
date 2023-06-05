@@ -15,4 +15,3 @@ this project contain 3 tasks as mentioned in the assessment
 - build `upload and downalod apis`
 - using GitHub action's to build application
 - pushing container to GitHub container registry
-  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
