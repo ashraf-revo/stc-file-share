@@ -22,13 +22,11 @@ public class WebfluxSecurity {
         UserDetails viewer = User
                 .withUsername("viewer")
                 .password("viewer")
-                .roles("VIEW")
                 .build();
 
         UserDetails editor = User
                 .withUsername("editor")
                 .password("editor")
-                .roles("Edit", "VIEW")
                 .build();
 
 

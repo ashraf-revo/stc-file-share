@@ -10,6 +10,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.codec.multipart.FilePart;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
@@ -42,10 +43,11 @@ public class FileApiV1 {
     }
 
     @GetMapping(value = "download/{itemId}")
-    public ResponseEntity<InputStreamResource> download(@PathVariable("itemId") Long itemId) {
+    @PreAuthorize("hasPermission('VIEW_FILE',#itemId)")
+    public Mono<ResponseEntity<InputStreamResource>> download(@PathVariable("itemId") Long itemId) {
         Item item = itemService.findOne(itemId);
         Assert.isTrue(ItemType.FILE.equals(item.getItemType()), "download should only call file item");
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + item.getName()).body(new InputStreamResource(new ByteArrayInputStream(item.getFile().getFile())));
+        return Mono.just(ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + item.getName()).body(new InputStreamResource(new ByteArrayInputStream(item.getFile().getFile()))));
     }
 
     @GetMapping(value = "meta/{itemId}")

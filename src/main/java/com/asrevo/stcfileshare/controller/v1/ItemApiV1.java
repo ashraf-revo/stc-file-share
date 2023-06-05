@@ -2,6 +2,7 @@ package com.asrevo.stcfileshare.controller.v1;
 
 import com.asrevo.stcfileshare.domain.Item;
 import com.asrevo.stcfileshare.service.ItemService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +22,14 @@ public class ItemApiV1 {
     }
 
     @PostMapping("space")
+    @PreAuthorize("hasPermission('CREATE_SPACE',#item)")
     public Mono<Item> createSpace(@RequestBody Item item) {
         Assert.hasText(item.getName(), "name should not be empty when creating space");
         return Mono.justOrEmpty(itemService.createItemSpace(item.getName()));
     }
 
     @PostMapping("folder")
+    @PreAuthorize("hasPermission('CREATE_FOLDER',#item)")
     public Mono<Item> createFolder(@RequestBody Item item) {
         Assert.hasText(item.getName(), "name should not be empty when creating folder");
         Assert.notNull(item.getParent(), "parent should not be null when creating folder");
