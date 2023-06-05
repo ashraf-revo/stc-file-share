@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: file-share
   stc-file-share:
-    image: ashraf1abdelrasool/stc-file-share:0.0.1-SNAPSHOT
+    image: ghcr.io/ashraf-revo/stc-file-share:0.1.0-snapshot
     restart: always
     ports:
       - "8080:8080"
