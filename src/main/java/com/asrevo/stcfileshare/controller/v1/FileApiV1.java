@@ -51,8 +51,9 @@ public class FileApiV1 {
     }
 
     @GetMapping(value = "meta/{itemId}")
-    public Map<String, String> getMeta(@PathVariable("itemId") Long itemId) {
-        return fileService.getMeta(itemId);
+    @PreAuthorize("hasPermission('VIEW_FILE',#itemId)")
+    public Mono<Map<String, String>> getMeta(@PathVariable("itemId") Long itemId) {
+        return Mono.just(fileService.getMeta(itemId));
     }
 
 
